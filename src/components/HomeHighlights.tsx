@@ -36,7 +36,7 @@ export default function HomeHighlights({ coins }: { coins: Coin[] }) {
 
   return (
     <div
-      className="flex gap-2 justify-center  w-full md:flex-nowrap  mb-4 flex-wrap  lg:flex-row
+      className="flex gap-2 justify-around  w-full md:flex-nowrap  mb-4 flex-wrap  lg:flex-row
       flex-col lg:h-64"
     >
       <div className="sm:w-full xl:w-1/3  gap-2  sm:flex lg:flex-col lg:justify-between">

@@ -35,7 +35,7 @@ export default function Home() {
           className="font-bold text-3xl "
           words={"coins "}
         />
-        <div className="flex flex-wrap gap-4 justify-center">
+        <div className="flex flex-wrap gap-4 justify-around">
           {status === "succeeded" &&
             coins
               .slice((pageNumber - 1) * 10, pageNumber * 10)

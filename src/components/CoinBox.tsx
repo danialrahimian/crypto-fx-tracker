@@ -27,7 +27,7 @@ export default function CoinBox({
   const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState<boolean>(false);
   return (
-    <Card className=" w-full sm:w-72 h-72 hover:scale-105 transition-all ">
+    <Card className=" w-full sm:w-72  h-72 hover:scale-105 transition-all ">
       <CardHeader className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <CardTitle className="flex items-center gap-2">
