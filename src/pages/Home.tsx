@@ -10,7 +10,7 @@ import HomeHighlights from "../components/HomeHighlights";
 import { TextGenerateEffect } from "../components/ui/text-generate-effect";
 
 export default function Home() {
-  const { coins, status } = useSelector((state) => state.crypto);
+  const { coins, status, error } = useSelector((state) => state.crypto);
 
   const [pageNumber, setPageNumber] = useState(1);
 
@@ -25,7 +25,7 @@ export default function Home() {
         <TextGenerateEffect
           duration={1}
           words={"Cryptocurrency Prices by Market Cap"}
-          className="font-bold text-2xl hover:bg-primary-foreground/90 transition-all rounded-sm p-1 text-center w-72 mx-auto"
+          className="font-bold text-2xl transition-all rounded-sm p-1 text-center w-72 mx-auto"
         />
       </div>
       <HomeHighlights coins={coins} />
@@ -46,7 +46,13 @@ export default function Home() {
             Array.from({ length: 10 }, (_, i) => i + 1).map((c) => {
               return <CoinBoxSkeleton key={c} />;
             })}
-          {status === "failed" && <ErorBox />}
+          {status === "failed" && (
+            <ErorBox
+              fetchAction={fetchCoins}
+              title="coins"
+              error_message={error}
+            />
+          )}
         </div>
       </div>
       <div className="flex justify-center my-5 ">
