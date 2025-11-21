@@ -7,10 +7,10 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
-import type { CoinTablePropType } from "../Types/coinTablePropTypes";
+import type { Coin } from "../Types/cryptoTypes";
 import { ArrowBigDownDash, ArrowBigUpDash } from "lucide-react";
 import { Link } from "react-router";
-export default function CoinsTable({ coins }: { coins: CoinTablePropType[] }) {
+export default function CoinsTable({ coins }: { coins: readonly Coin[] }) {
   return (
     <Table>
       <TableCaption>A list of top 10 coins by market cap</TableCaption>

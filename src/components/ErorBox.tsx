@@ -8,18 +8,19 @@ import {
 } from "./ui/card";
 import { Button } from "./ui/button";
 
-import { useDispatch } from "react-redux";
 import { CircleX, Check } from "lucide-react";
+import { useAppDispatch } from "../hooks/hooks";
+import type { AsyncThunk, AsyncThunkConfig } from "@reduxjs/toolkit";
 export default function ErorBox({
   error_message,
   title,
   fetchAction,
 }: {
-  error_message: string;
-  title: string;
-  fetchAction: () => void;
+  readonly error_message: string;
+  readonly title: string;
+  readonly fetchAction: AsyncThunk<void, void, AsyncThunkConfig>;
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   return (
     <Card>
       <CardHeader className="w-64">

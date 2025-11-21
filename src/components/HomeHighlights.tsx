@@ -7,7 +7,6 @@ import {
 } from "./ui/card";
 import { Spinner } from "./ui/spinner";
 import { Link } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchTrendItems } from "../Redux/reducers/trendItemsSlice";
 import { fetchMarketData } from "../Redux/reducers/marketSlice";
@@ -15,12 +14,13 @@ import type { Coin } from "../Types/cryptoTypes";
 import type { MarketData } from "../Types/marketTypes";
 import { ArrowBigUp, ArrowBigDown } from "lucide-react";
 import type { TrendCoin } from "../Types/trendItemsType";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 export default function HomeHighlights({ coins }: { coins: Coin[] }) {
-  const { trendItems, status } = useSelector((state) => state.trendItems);
+  const { trendItems, status } = useAppSelector((state) => state.trendItems);
   const {
     marketData,
     marketDataStatus,
-  }: { marketData: MarketData[]; marketDataStatus: string } = useSelector(
+  }: { marketData: MarketData[]; marketDataStatus: string } = useAppSelector(
     (state) => state.market
   );
   const topGainers: Coin[] = [...coins]
@@ -28,7 +28,7 @@ export default function HomeHighlights({ coins }: { coins: Coin[] }) {
       (a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h
     )
     .slice(0, 3);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchTrendItems());
     dispatch(fetchMarketData());

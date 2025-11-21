@@ -20,6 +20,7 @@ export interface Coin {
   ath: number;
   ath_change_percentage: number;
   ath_date: string;
+  atl: number;
   atl_change_percentage: number;
   atl_date: string;
   roi: null;

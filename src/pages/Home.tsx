@@ -1,6 +1,5 @@
 import CoinBox from "../components/CoinBox";
 import type { coinBoxPropType } from "../Types/coinBoxPropType";
-import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchCoins } from "../Redux/reducers/cryptoSlice";
 import Pagination from "../components/Pagination";
@@ -8,13 +7,14 @@ import CoinBoxSkeleton from "../components/CoinBoxSkeleton";
 import ErorBox from "../components/ErorBox";
 import HomeHighlights from "../components/HomeHighlights";
 import { TextGenerateEffect } from "../components/ui/text-generate-effect";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 export default function Home() {
-  const { coins, status, error } = useSelector((state) => state.crypto);
+  const { coins, status, error } = useAppSelector((state) => state.crypto);
 
   const [pageNumber, setPageNumber] = useState(1);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchCoins());
   }, []);

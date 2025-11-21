@@ -1,5 +1,5 @@
 export type coinBoxPropType = {
-  id: string;
+  readonly id: string;
   readonly symbol: string;
   readonly name: string;
   readonly current_price: number;

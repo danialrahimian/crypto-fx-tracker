@@ -1,13 +1,12 @@
-import { useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { useEffect } from "react";
 import { fetchExchange } from "../Redux/reducers/exchangeSlice";
-import { useDispatch } from "react-redux";
 import ExchangeBox from "../components/exchangeBox";
 import { TextGenerateEffect } from "../components/ui/text-generate-effect";
 import type { Exchange } from "../Types/exchangeTypes";
 export default function Exchanges() {
-  const { exchanges, status } = useSelector((state) => state.exchange);
-  const dispatch = useDispatch();
+  const { exchanges, status } = useAppSelector((state) => state.exchange);
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchExchange());
   }, []);

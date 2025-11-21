@@ -1,10 +1,10 @@
 import CoinsTable from "../components/CoinsTable";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { useEffect } from "react";
 import { fetchCoins } from "../Redux/reducers/cryptoSlice";
 export default function Coins() {
-  const { coins } = useSelector((state) => state.crypto);
-  const dispatch = useDispatch();
+  const { coins } = useAppSelector((state) => state.crypto);
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchCoins());
   }, []);
