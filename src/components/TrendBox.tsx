@@ -1,0 +1,149 @@
+import type { TrendBoxPropType } from "../Types/trendItemsType";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { ArrowUp, ArrowDown } from "lucide-react";
+const TrendBox = ({ trend }: { trend: TrendBoxPropType }) => {
+  if (trend.kind === "coin") {
+    return (
+      <Card className="cursor-pointer xl:w-80 lg:w-96 w-full hover:scale-105 transition-all ">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <img className="w-10 h-10" src={trend.item.thumb} alt="" />
+            <p>{trend.item.name}</p>
+            <span>{trend.item.symbol}</span>
+          </CardTitle>
+        </CardHeader>
+        <CardDescription className="px-5">
+          {trend.item.data.content === null ? (
+            <p>no content</p>
+          ) : (
+            <>
+              <p>{trend.item.data.content.title}</p>
+              <p>{trend.item.data.content.description}</p>
+            </>
+          )}
+        </CardDescription>
+        <CardContent>
+          <div className="flex items-center gap-2">
+            <p> price: {trend.item.data.price.toFixed(4)}$</p>
+            <p
+              className={`${
+                trend.item.data.price_change_percentage_24h.usd > 0
+                  ? "text-green-500"
+                  : "text-red-500"
+              } flex items-center`}
+            >
+              <span>
+                {trend.item.data.price_change_percentage_24h.usd.toFixed(2)}%
+              </span>
+              {trend.item.data.price_change_percentage_24h.usd > 0 ? (
+                <ArrowUp />
+              ) : (
+                <ArrowDown />
+              )}
+            </p>
+          </div>
+
+          <p> market cap rank: {trend.item.market_cap_rank}</p>
+          <p> market cap : {trend.item.data.market_cap}</p>
+          <p> total volume : {trend.item.data.total_volume}</p>
+        </CardContent>
+        <CardFooter>
+          <img src={trend.item.data.sparkline} alt="" />
+        </CardFooter>
+      </Card>
+    );
+  }
+  if (trend.kind === "nft") {
+    return (
+      <Card className="cursor-pointer xl:w-80 lg:w-96 w-full hover:scale-105 transition-all ">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <img className="w-10 h-10" src={trend.thumb} alt="" />
+            <p>{trend.name}</p>
+            <span className="text-xs text-gray-500">{trend.symbol}</span>
+          </CardTitle>
+          <CardDescription>Card Description</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center gap-2">
+            <p>price: {trend.data.floor_price}</p>
+            <p
+              className={`${
+                Number(trend.data.floor_price_in_usd_24h_percentage_change) > 0
+                  ? "text-green-500"
+                  : "text-red-500"
+              } flex items-center`}
+            >
+              {Number(
+                trend.data.floor_price_in_usd_24h_percentage_change
+              ).toFixed(2)}
+              %
+              {Number(trend.data.floor_price_in_usd_24h_percentage_change) >
+              0 ? (
+                <ArrowUp />
+              ) : (
+                <ArrowDown />
+              )}
+            </p>
+          </div>
+          <p>24h volume: {trend.data.h24_volume}</p>
+          <img src={trend.data.sparkline} alt="" />
+        </CardContent>
+        <CardFooter>
+          {trend.data.content === null ? (
+            <p className="text-xs text-gray-500">no content</p>
+          ) : (
+            <p>{trend.data.content}</p>
+          )}
+        </CardFooter>
+      </Card>
+    );
+  }
+  if (trend.kind === "category") {
+    return (
+      <Card className="cursor-pointer  w-full xl:w-64 lg:w-72 hover:scale-105 transition-all ">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <p>{trend.name}</p>
+          </CardTitle>
+          <CardDescription>Card Description</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center gap-2">
+            <p>market cap: {trend.data.market_cap.toFixed(2)}$</p>
+            <p
+              className={`${
+                Number(
+                  trend.data.market_cap_change_percentage_24h.usd.toFixed(2)
+                ) > 0
+                  ? "text-green-500"
+                  : "text-red-500"
+              } flex items-center`}
+            >
+              {Number(trend.data.market_cap_change_percentage_24h.usd).toFixed(
+                2
+              )}
+              %
+              {Number(trend.data.market_cap_change_percentage_24h.usd) > 0 ? (
+                <ArrowUp />
+              ) : (
+                <ArrowDown />
+              )}
+            </p>
+          </div>
+          <p>volume: {trend.data.total_volume.toFixed(2)}$</p>
+          <img src={trend.data.sparkline} alt="" />
+        </CardContent>
+      </Card>
+    );
+  }
+};
+
+export default TrendBox;

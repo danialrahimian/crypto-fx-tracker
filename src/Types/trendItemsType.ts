@@ -1,4 +1,5 @@
-export interface TrendCoin {
+export type TrendCoin = {
+  kind?: "coin";
   item: {
     id: string;
     coin_id: number;
@@ -84,11 +85,15 @@ export interface TrendCoin {
       total_volume: string;
       total_volume_btc: string;
       sparkline: string;
-      content: string;
+      content: {
+        title: string;
+        description: string;
+      };
     };
   };
-}
-interface Nft {
+};
+export type TrendNft = {
+  kind?: "nft";
   id: string;
   name: string;
   symbol: string;
@@ -105,9 +110,10 @@ interface Nft {
     sparkline: string;
     content: string;
   };
-}
+};
 
-interface Category {
+export type TrendCategory = {
+  kind?: "category";
   id: number;
   name: string;
   market_cap_1h_change: number;
@@ -185,11 +191,11 @@ interface Category {
     };
     sparkline: string;
   };
-}
+};
 
-type Nfts = Nft[];
+type Nfts = TrendNft[];
 type Coins = TrendCoin[];
-type Categories = Category[];
+type Categories = TrendCategory[];
 
 export type TrendItems = {
   coins: Coins;
@@ -201,3 +207,5 @@ export interface TrendItemsState {
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string;
 }
+
+export type TrendBoxPropType = TrendCoin | TrendNft | TrendCategory;
