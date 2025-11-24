@@ -18,7 +18,7 @@ export default function ErorBox({
 }: {
   readonly error_message: string;
   readonly title: string;
-  readonly fetchAction: AsyncThunk<void, void, AsyncThunkConfig>;
+  readonly fetchAction?: AsyncThunk<void, void, AsyncThunkConfig>;
 }) {
   const dispatch = useAppDispatch();
   return (
@@ -36,7 +36,7 @@ export default function ErorBox({
         <p className="text-center">Try again later</p>
       </CardContent>
       <CardFooter className="items-center w-full flex justify-center">
-        <Button onClick={() => dispatch(fetchAction())}>
+        <Button onClick={() => (fetchAction ? dispatch(fetchAction()) : null)}>
           <span>Try Again Now</span>
           <Check className="text-green-700" />
         </Button>

@@ -11,7 +11,7 @@ import { Input } from "./ui/input";
 import MobileNavMenu from "./MobileNavMenu";
 export default function Navbar() {
   return (
-    <div className="mt-2 flex justify-between items-center w-[90%] mx-auto fixed top-0 left-0 right-0 z-999 backdrop-blur-2xl h-16 border border-primary/20  rounded-2xl px-2">
+    <div className="mt-2 flex justify-between items-center w-[90%] mx-auto fixed top-0 left-0 right-0 z-100 backdrop-blur-2xl h-16 border border-primary/20  rounded-2xl px-2">
       <Link to="/" className="font-bold w-64">
         Crypto FX Tracker
       </Link>

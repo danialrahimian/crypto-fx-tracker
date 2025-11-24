@@ -1,6 +1,6 @@
 import { Skeleton } from "./ui/skeleton";
 
-export default function CoinBoxSkeleton() {
+export default function SkeletonBox() {
   return (
     <div className=" space-x-4 w-72 h-72 p-6">
       <div className=" gap-2 flex items-center my-5">

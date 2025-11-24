@@ -3,7 +3,7 @@ import type { coinBoxPropType } from "../Types/coinBoxPropType";
 import { useEffect, useState } from "react";
 import { fetchCoins } from "../Redux/reducers/cryptoSlice";
 import Pagination from "../components/Pagination";
-import CoinBoxSkeleton from "../components/CoinBoxSkeleton";
+import CoinBoxSkeleton from "../components/SkeletonBox";
 import ErorBox from "../components/ErorBox";
 import HomeHighlights from "../components/HomeHighlights";
 import { TextGenerateEffect } from "../components/ui/text-generate-effect";
@@ -55,14 +55,16 @@ export default function Home() {
           )}
         </div>
       </div>
-      <div className="flex justify-center my-5 ">
-        <Pagination
-          itemsPerPage={10}
-          setPageNumber={setPageNumber}
-          totalItems={coins.length}
-          pageNumber={pageNumber}
-        />
-      </div>
+      {status === "succeeded" && (
+        <div className="flex justify-center my-5 ">
+          <Pagination
+            itemsPerPage={10}
+            setPageNumber={setPageNumber}
+            totalItems={coins.length}
+            pageNumber={pageNumber}
+          />
+        </div>
+      )}
     </>
   );
 }

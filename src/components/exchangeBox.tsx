@@ -1,4 +1,4 @@
-import type { Exchange } from "../Types/exchangeTypes";
+import type { Exchange } from "../Types/exchangesTypes";
 import {
   Card,
   CardContent,
@@ -9,9 +9,21 @@ import {
 } from "./ui/card";
 import { CircleCheck, CircleX } from "lucide-react";
 import { Link } from "react-router";
-export default function exchangeBox({ exchange }: { exchange: Exchange }) {
+import { useAppDispatch } from "../hooks/hooks";
+import type { AsyncThunk, AsyncThunkConfig } from "@reduxjs/toolkit";
+export default function ExchangeBox({
+  exchange,
+  fetchExchangeById,
+}: {
+  exchange: Exchange;
+  fetchExchangeById: AsyncThunk<void, string, AsyncThunkConfig>;
+}) {
+  const dispatch = useAppDispatch();
   return (
-    <Card className="w-72 hover:scale-105 transition-all cursor-pointer">
+    <Card
+      onClick={() => dispatch(fetchExchangeById(exchange.id))}
+      className="w-72 hover:scale-105 transition-all cursor-pointer"
+    >
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <span>{exchange.trust_score_rank}</span>
@@ -23,6 +35,18 @@ export default function exchangeBox({ exchange }: { exchange: Exchange }) {
         <CardTitle>
           <span>BTC trade volume : </span>
           <span>{exchange.trade_volume_24h_btc.toFixed(2)}$</span>
+        </CardTitle>
+        <CardTitle className="flex items-center gap-2 mt-2">
+          <span>Trust Score : </span>
+          <span
+            className={`${
+              exchange.trust_score > 6
+                ? "text-green-500 bg-green-500/20"
+                : "text-yellow-500 bg-yellow-500/20"
+            } rounded-sm p-1`}
+          >
+            {exchange.trust_score} / 10
+          </span>
         </CardTitle>
         <CardDescription className="flex items-center gap-2 mt-2">
           <span>
