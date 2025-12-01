@@ -10,9 +10,7 @@ import type {
 } from "../Types/trendItemsType";
 export default function Trend() {
   const dispatch = useAppDispatch();
-  const { trendItems, status, error } = useAppSelector(
-    (state) => state.trendItems
-  );
+  const { trendItems } = useAppSelector((state) => state.trendItems);
   useEffect(() => {
     dispatch(fetchTrendItems());
   }, [dispatch]);

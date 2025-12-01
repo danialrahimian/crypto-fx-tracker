@@ -15,7 +15,13 @@ import type { MarketData } from "../Types/marketTypes";
 import { ArrowBigUp, ArrowBigDown } from "lucide-react";
 import type { TrendCoin } from "../Types/trendItemsType";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-export default function HomeHighlights({ coins }: { coins: Coin[] }) {
+export default function HomeHighlights({
+  coins,
+  coinsStatus,
+}: {
+  readonly coins: Coin[];
+  readonly coinsStatus: string;
+}) {
   const { trendItems, status } = useAppSelector((state) => state.trendItems);
   const {
     marketData,
@@ -33,7 +39,7 @@ export default function HomeHighlights({ coins }: { coins: Coin[] }) {
     dispatch(fetchTrendItems());
     dispatch(fetchMarketData());
   }, []);
-
+  const spinnerCount = new Array(3).fill(1);
   return (
     <div
       className="flex gap-2 justify-around  w-full md:flex-nowrap  mb-4 flex-wrap  lg:flex-row
@@ -44,7 +50,10 @@ export default function HomeHighlights({ coins }: { coins: Coin[] }) {
           <>
             <Card className="sm:w-1/2 lg:w-full lg:h-full">
               <CardHeader>
-                <CardTitle>{marketData[0].market_cap}$</CardTitle>
+                <CardTitle>
+                  <p className="mb-2">Market Cap : </p>
+                  <span>{marketData[0].market_cap}$</span>
+                </CardTitle>
                 <CardDescription className="flex items-center gap-2">
                   Market Cap
                   <span
@@ -66,7 +75,10 @@ export default function HomeHighlights({ coins }: { coins: Coin[] }) {
             </Card>
             <Card className="sm:w-1/2 lg:w-full lg:h-full">
               <CardHeader>
-                <CardTitle>{marketData[0].volume_24h}$</CardTitle>
+                <CardTitle>
+                  <p className="mb-2">24h Trading Volume : </p>
+                  <span>{marketData[0].volume_24h}$</span>
+                </CardTitle>
                 <CardDescription>24h Trading Volume</CardDescription>
               </CardHeader>
             </Card>
@@ -87,6 +99,28 @@ export default function HomeHighlights({ coins }: { coins: Coin[] }) {
                 <CardTitle className=" flex gap-2 items-center">
                   <Spinner />
                   <span className="font-semibold">Loading...</span>
+                </CardTitle>
+              </CardHeader>
+            </Card>
+          </>
+        )}
+        {marketDataStatus === "failed" && (
+          <>
+            <Card className="h-1/2 ">
+              <CardHeader>
+                <CardTitle className=" flex gap-2 items-center">
+                  <span className="font-semibold text-destructive">
+                    Failed to load market data
+                  </span>
+                </CardTitle>
+              </CardHeader>
+            </Card>
+            <Card className="h-1/2 ">
+              <CardHeader>
+                <CardTitle className=" flex gap-2 items-center">
+                  <span className="font-semibold text-destructive">
+                    Failed to load market data
+                  </span>
                 </CardTitle>
               </CardHeader>
             </Card>
@@ -135,6 +169,19 @@ export default function HomeHighlights({ coins }: { coins: Coin[] }) {
                 </CardContent>
               );
             })}
+          {status === "loading" &&
+            spinnerCount.map((_, index) => {
+              return (
+                <CardContent key={index + 1}>
+                  <Spinner /> Loading...
+                </CardContent>
+              );
+            })}
+          {status === "failed" && (
+            <CardContent>
+              <p className="text-destructive">failed to load top trends !!</p>
+            </CardContent>
+          )}
         </Card>
       </div>
       <div className="w-full h-full  xl:w-1/3">
@@ -143,7 +190,7 @@ export default function HomeHighlights({ coins }: { coins: Coin[] }) {
             <CardTitle>🚀 Top Gainers</CardTitle>
             <Link to="/coins">view more</Link>
           </CardHeader>
-          {status === "succeeded" &&
+          {coinsStatus === "succeeded" &&
             topGainers.map((topGainer) => {
               return (
                 <CardContent key={topGainer.id}>
@@ -172,6 +219,19 @@ export default function HomeHighlights({ coins }: { coins: Coin[] }) {
                 </CardContent>
               );
             })}
+          {coinsStatus === "loading" &&
+            spinnerCount.map((_, index) => {
+              return (
+                <CardContent key={index + 1}>
+                  <Spinner /> Loading...
+                </CardContent>
+              );
+            })}
+          {coinsStatus === "failed" && (
+            <CardContent>
+              <p className="text-destructive">failed to load coins !!</p>
+            </CardContent>
+          )}
         </Card>
       </div>
     </div>

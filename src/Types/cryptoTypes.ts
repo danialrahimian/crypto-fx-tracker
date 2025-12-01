@@ -28,6 +28,13 @@ export interface Coin {
 }
 export interface CryptoState {
   coins: Coin[];
+  sortedCoins: Coin[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string;
+  priceSortDirection: "asc" | "desc";
+  marketCapSortDirection: "asc" | "desc";
+  totalVolumeSortDirection: "asc" | "desc";
+  high24hSortDirection: "asc" | "desc";
+  low24hSortDirection: "asc" | "desc";
+  atlSortDirection: "asc" | "desc";
 }

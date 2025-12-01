@@ -78,7 +78,7 @@ export default function AssetPlatformsTable({
         )}
       </Table>
       {assetPlatformsStatus === "failed" && (
-        <div className="flex justify-center">
+        <div className="flex pt-5 justify-center">
           <ErorBox
             title="asset platforms"
             error_message={error}

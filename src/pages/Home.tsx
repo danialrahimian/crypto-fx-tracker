@@ -13,7 +13,6 @@ export default function Home() {
   const { coins, status, error } = useAppSelector((state) => state.crypto);
 
   const [pageNumber, setPageNumber] = useState(1);
-
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchCoins());
@@ -28,7 +27,7 @@ export default function Home() {
           className="font-bold text-2xl transition-all rounded-sm p-1 text-center w-72 mx-auto"
         />
       </div>
-      <HomeHighlights coins={coins} />
+      <HomeHighlights coinsStatus={status} coins={coins} />
       <div className="flex flex-col gap-4 items-center">
         <TextGenerateEffect
           duration={1}
