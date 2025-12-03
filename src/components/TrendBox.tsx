@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { TrendBoxPropType } from "../Types/trendItemsType";
 import {
   Card,
@@ -9,6 +10,10 @@ import {
 } from "./ui/card";
 import { ArrowUp, ArrowDown } from "lucide-react";
 const TrendBox = ({ trend }: { trend: TrendBoxPropType }) => {
+  const [fullDescribtion, setFullDescribtion] = useState({
+    describtion: "",
+    isShow: false,
+  });
   if (trend.kind === "coin") {
     return (
       <Card className="cursor-pointer xl:w-80 lg:w-96 w-full hover:scale-105 transition-all ">
@@ -24,8 +29,38 @@ const TrendBox = ({ trend }: { trend: TrendBoxPropType }) => {
             <p>no content</p>
           ) : (
             <>
-              <p>{trend.item.data.content.title}</p>
-              <p>{trend.item.data.content.description}</p>
+              <p className="text-gray-500 text-lg">
+                {trend.item.data.content.title}
+              </p>
+
+              {trend.item.data.content.description.length > 200 ? (
+                <p>
+                  {trend.item.data.content.description.slice(0, 201)}
+                  {fullDescribtion.isShow && fullDescribtion.describtion}
+
+                  <button
+                    className="text-[16px] text-gray-500 hover:text-gray-700 transition-colors"
+                    onClick={() => {
+                      if (fullDescribtion.isShow) {
+                        setFullDescribtion({
+                          describtion: "",
+                          isShow: false,
+                        });
+                      } else {
+                        setFullDescribtion({
+                          describtion:
+                            trend.item.data.content.description.slice(201),
+                          isShow: true,
+                        });
+                      }
+                    }}
+                  >
+                    {fullDescribtion.isShow ? "less" : " ... more"}
+                  </button>
+                </p>
+              ) : (
+                <p>{trend.item.data.content.description}</p>
+              )}
             </>
           )}
         </CardDescription>
@@ -64,10 +99,21 @@ const TrendBox = ({ trend }: { trend: TrendBoxPropType }) => {
     return (
       <Card className="cursor-pointer xl:w-80 lg:w-96 w-full hover:scale-105 transition-all ">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <img className="w-10 h-10" src={trend.thumb} alt="" />
-            <p>{trend.name}</p>
-            <span className="text-xs text-gray-500">{trend.symbol}</span>
+          <CardTitle className="flex items-center  justify-between">
+            <div className="flex items-center gap-2 ">
+              <img className="w-10 h-10" src={trend.thumb} alt="" />
+
+              <p>{trend.name}</p>
+            </div>
+            <span
+              className={`text-xs text-gray-500 ${
+                trend.symbol.length > 15 ? "ml-2" : null
+              }`}
+            >
+              {trend.symbol.length > 15
+                ? trend.symbol.slice(0, 15) + "..."
+                : trend.symbol}
+            </span>
           </CardTitle>
           <CardDescription>Card Description</CardDescription>
         </CardHeader>

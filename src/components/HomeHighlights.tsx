@@ -128,7 +128,7 @@ export default function HomeHighlights({
         )}
       </div>
       <div className="w-full h-full  xl:w-1/3">
-        <Card className="h-full">
+        <Card className="h-full"> 
           <CardHeader className="flex items-center justify-between">
             <CardTitle>🔥 Trending</CardTitle>
             <Link to="/trends">view more</Link>
