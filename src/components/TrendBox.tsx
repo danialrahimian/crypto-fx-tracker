@@ -115,7 +115,6 @@ const TrendBox = ({ trend }: { trend: TrendBoxPropType }) => {
                 : trend.symbol}
             </span>
           </CardTitle>
-          <CardDescription>Card Description</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center gap-2">
@@ -140,7 +139,7 @@ const TrendBox = ({ trend }: { trend: TrendBoxPropType }) => {
             </p>
           </div>
           <p>24h volume: {trend.data.h24_volume}</p>
-          <img src={trend.data.sparkline} alt="" />
+          <img className="my-2" src={trend.data.sparkline} alt="" />
         </CardContent>
         <CardFooter>
           {trend.data.content === null ? (
@@ -154,12 +153,12 @@ const TrendBox = ({ trend }: { trend: TrendBoxPropType }) => {
   }
   if (trend.kind === "category") {
     return (
-      <Card className="cursor-pointer  w-full xl:w-64 lg:w-72 hover:scale-105 transition-all ">
+      <Card className="cursor-pointer h-48 xl:w-80 lg:w-96 w-full hover:scale-105 transition-all ">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <p>{trend.name}</p>
           </CardTitle>
-          <CardDescription>Card Description</CardDescription>
+          <CardDescription>Coin Count: {trend.coins_count}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center gap-2">

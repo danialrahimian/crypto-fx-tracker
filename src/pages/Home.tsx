@@ -1,5 +1,5 @@
 import CoinBox from "../components/CoinBox";
-import type { coinBoxPropType } from "../Types/coinBoxPropType";
+import type { Coin } from "../Types/cryptoTypes";
 import { useEffect, useState } from "react";
 import { fetchCoins } from "../Redux/reducers/cryptoSlice";
 import Pagination from "../components/Pagination";
@@ -8,10 +8,13 @@ import ErorBox from "../components/ErorBox";
 import HomeHighlights from "../components/HomeHighlights";
 import { TextGenerateEffect } from "../components/ui/text-generate-effect";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-
+import { fetchCoinById } from "../Redux/reducers/coinSlice";
+import CoinSheet from "../components/CoinSheet";
 export default function Home() {
   const { coins, status, error } = useAppSelector((state) => state.crypto);
-
+  const { coinById, statusById, errorById } = useAppSelector(
+    (state) => state.coin
+  );
   const [pageNumber, setPageNumber] = useState(1);
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -38,8 +41,21 @@ export default function Home() {
           {status === "succeeded" &&
             coins
               .slice((pageNumber - 1) * 10, pageNumber * 10)
-              .map((coin: coinBoxPropType) => {
-                return <CoinBox key={coin.id} {...coin} />;
+              .map((coin: Coin) => {
+                return (
+                  <CoinSheet
+                    key={coin.id}
+                    coin={coinById}
+                    status={statusById}
+                    error={errorById}
+                  >
+                    <CoinBox
+                      key={coin.id}
+                      {...coin}
+                      fetchCoinById={fetchCoinById}
+                    />
+                  </CoinSheet>
+                );
               })}
           {status === "loading" &&
             Array.from({ length: 10 }, (_, i) => i + 1).map((c) => {

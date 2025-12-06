@@ -1,17 +1,13 @@
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "./ui/card";
 import type { coinBoxPropType } from "../Types/coinBoxPropType";
-import { Button } from "./ui/button";
 import { ArrowUp, ArrowDown, Heart } from "lucide-react";
-import { useNavigate } from "react-router";
-
+import { useAppDispatch } from "../hooks/hooks";
 import { useState } from "react";
 import { toast } from "sonner";
 export default function CoinBox({
@@ -23,11 +19,15 @@ export default function CoinBox({
   market_cap_rank,
   price_change_percentage_24h,
   image,
+  fetchCoinById,
 }: coinBoxPropType) {
-  const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
   return (
-    <Card className=" w-full sm:w-72  h-72 hover:scale-105 transition-all ">
+    <Card
+      onClick={() => dispatch(fetchCoinById(id))}
+      className=" w-full sm:w-72 h-72 hover:scale-105 transition-all cursor-pointer"
+    >
       <CardHeader className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <CardTitle className="flex items-center gap-2">
@@ -52,7 +52,7 @@ export default function CoinBox({
           }}
         />
       </CardHeader>
-      <CardContent className="flex flex-col gap-1">
+      <CardContent className="flex flex-col gap-1 items-start">
         <p className="hover:bg-gray-300/30 transition-all rounded-sm p-1">
           price : {current_price} $
         </p>
@@ -78,11 +78,6 @@ export default function CoinBox({
           </span>
         </p>
       </CardContent>
-      <CardFooter className="flex flex-col">
-        <CardAction>
-          <Button onClick={() => navigate(`/coin/${id}`)}>more details</Button>
-        </CardAction>
-      </CardFooter>
     </Card>
   );
 }

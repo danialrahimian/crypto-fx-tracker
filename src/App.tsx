@@ -5,11 +5,7 @@ import { useRoutes } from "react-router";
 import store from "./Redux/store";
 import { Provider } from "react-redux";
 import { Toaster } from "./components/ui/sonner";
-import {
-  Cursor,
-  CursorProvider,
-} from "./components/animate-ui/components/animate/cursor";
-
+import Footer from "./components/Footer";
 function App() {
   const routes = useRoutes(router);
   return (
@@ -19,6 +15,7 @@ function App() {
           <Navbar />
           {routes}
           <Toaster position="top-center" richColors />
+          <Footer />
         </ThemeProvider>
       </Provider>
     </div>

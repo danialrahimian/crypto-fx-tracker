@@ -19,8 +19,11 @@ const NftBox = ({
     >
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <span> {nft.symbol}</span>
-          <p>{nft.name}</p>
+          <span>{nft.symbol}</span>
+          <p>
+            {" "}
+            {nft.name.length > 10 ? nft.name.slice(0, 10) + " ..." : nft.name}
+          </p>
         </CardTitle>
       </CardHeader>
       <CardContent>

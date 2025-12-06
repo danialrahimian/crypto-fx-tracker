@@ -1,3 +1,4 @@
+import type { AsyncThunk, AsyncThunkConfig } from "@reduxjs/toolkit";
 export type coinBoxPropType = {
   readonly id: string;
   readonly symbol: string;
@@ -7,4 +8,5 @@ export type coinBoxPropType = {
   readonly market_cap_rank: number;
   readonly price_change_percentage_24h: number;
   readonly image: string;
+  readonly fetchCoinById: AsyncThunk<void, string, AsyncThunkConfig>;
 };
