@@ -1,73 +1,69 @@
-# React + TypeScript + Vite
+# Crypto FX Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive cryptocurrency and NFT dashboard built with React 19, TypeScript, and Vite. The app pulls live data from the public CoinGecko API to surface coins, exchanges, NFTs, asset platforms, and trending categories with sortable tables, detail drawers, and dark/light theming.
 
-Currently, two official plugins are available:
+## Features
+- Live market data via CoinGecko: top 100 coins, exchanges, NFTs, asset platforms, and trending coins/NFTs/categories.
+- Home hub with animated hero text, market cap and 24h volume highlights, trending coins, top gainers, and coin cards that open a detail sheet.
+- Coins table with multi-column sorting (price, market cap, volume, 24h highs/lows, ATL) plus inline delta indicators and loading spinners.
+- Detail sheets for coins, exchanges, and NFTs that surface descriptions, social links, rankings, price movement, and trust/favorites metrics.
+- Pagination, skeleton/loading states, and retryable error boxes across data-heavy views.
+- Dark/light theme toggle, mobile navigation, and adaptive layouts tailored for phones, tablets, and desktops.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
+- React 19 + TypeScript, Vite 7 for fast HMR and production builds.
+- State: Redux Toolkit (async thunks) with typed hooks and modular slices per resource.
+- Styling: Tailwind CSS v4 with custom theme tokens, Radix UI primitives (shadcn-inspired), lucide-react icons, and motion/sonner for interactions and toasts.
+- Routing: react-router with a simple route config in `src/routes/routes.tsx`.
 
-## React Compiler
+## Getting Started
+Prerequisites: Node.js 18+ and npm.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# Install dependencies
+npm install
 
-## Expanding the ESLint configuration
+# Start the dev server on all interfaces (use http://localhost:5173 by default)
+npm run dev
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# Type-check and build for production (outputs to dist/)
+npm run build
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Preview the production build locally
+npm run preview
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Lint the project
+npm run lint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+No API keys are required; all endpoints are public CoinGecko routes. Be mindful of their rate limits when developing.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Data Sources (CoinGecko)
+- `/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100...`
+- `/coins/{id}`, `/search/trending`, `/coins/categories`
+- `/asset_platforms`
+- `/exchanges`, `/exchanges/{id}`
+- `/nfts/list`, `/nfts/{id}`
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Project Structure
 ```
+src/
+  components/        // UI blocks (cards, tables, sheets, skeletons, pagination)
+  pages/             // Route pages: Home, Coins, Exchanges, NFTs, Asset Platforms, Trends
+  Redux/             // Store setup + slices per resource
+  Types/             // Shared TypeScript models
+  routes/routes.tsx  // Route definitions
+  index.css          // Tailwind v4 theme tokens and globals
+```
+
+## Development Notes
+- Async flows live in slice thunks (see `src/Redux/reducers/*Slice.ts`); UI dispatches typed actions via `useAppDispatch`/`useAppSelector`.
+- Error and loading UX: `SkeletonBox`, `Spinner`, and `ErorBox` components provide graceful fallback states with retry hooks.
+- Detail drawers: coin/exchange/NFT cards dispatch a fetch-by-id thunk and render sheets via Radix UI.
+- Theme: `ThemeProvider` + `ModeToggle` manage persisted dark/light mode with Tailwind tokens.
+
+## Build & Deploy
+`npm run build` emits a static bundle to `dist/` that can be hosted on any static host (Vercel, Netlify, GitHub Pages, Cloudflare Pages, etc.). Use `npm run preview` to smoke-test the production build locally before deploying.
+
+## License
+No license file is provided yet. Add your preferred license before publishing to GitHub.
