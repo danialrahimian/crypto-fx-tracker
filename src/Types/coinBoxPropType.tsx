@@ -5,8 +5,8 @@ export type coinBoxPropType = {
   readonly name: string;
   readonly current_price: number;
   readonly market_cap: number;
-  readonly market_cap_rank: number;
+  readonly market_cap_rank: number | null;
   readonly price_change_percentage_24h: number;
   readonly image: string;
-  readonly fetchCoinById: AsyncThunk<void, string, AsyncThunkConfig>;
+   fetchCoinById: AsyncThunk<any, string, AsyncThunkConfig>;
 };

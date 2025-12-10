@@ -10,7 +10,7 @@ import {
 } from "./ui/sheet";
 import type { CoinById } from "../Types/cryptoTypes";
 import SkeletonBox from "./SkeletonBox";
-import { AppWindow, BadgeCheck, Facebook, Send, X } from "lucide-react";
+import { AppWindow, BadgeCheck, Facebook, Github} from "lucide-react";
 export default function CoinSheet({
   children,
   coin,
@@ -53,9 +53,9 @@ export default function CoinSheet({
                   <span>website</span>
                 </a>
               )}
-              {coin.facebook_username && (
+              {coin.links?.facebook_username && (
                 <a
-                  href={`https://www.facebook.com/${coin.facebook_username}`}
+                  href={`https://www.facebook.com/${coin.links.facebook_username}`}
                   className="flex items-center gap-1 text-sm"
                   target="_blank"
                 >
@@ -63,9 +63,9 @@ export default function CoinSheet({
                   <span>facebook</span>
                 </a>
               )}
-              {coin.subreddit_url && (
+              {coin.links?.subreddit_url && (
                 <a
-                  href={coin.subreddit_url}
+                  href={coin.links.subreddit_url}
                   className="flex items-center gap-1 text-sm"
                   target="_blank"
                 >
@@ -73,13 +73,13 @@ export default function CoinSheet({
                   <span>reddit</span>
                 </a>
               )}
-              {coin.repos_url && (
+              {coin.links?.repos_url && (
                 <a
-                  href={coin.repos_url.github[0]}
+                  href={coin.links.repos_url.github[0]}
                   className="flex items-center gap-1 text-sm"
                   target="_blank"
                 >
-                  <Send size={16} />
+                  <Github size={16} />
                   <span>github</span>
                 </a>
               )}
@@ -91,23 +91,6 @@ export default function CoinSheet({
                   <p> stars : {coin.developer_data.stars}</p>
                   <p> subscribers : {coin.developer_data.subscribers}</p>
                   <p> total_issues : {coin.developer_data.total_issues}</p>
-                </>
-              )}
-              {coin.tickers && (
-                <>
-                  <p className=" flex items-center gap-1">
-                    {" "}
-                    trust_score :{" "}
-                    {coin.tickers[3] === "green" ? (
-                      <BadgeCheck fill="green" />
-                    ) : (
-                      <BadgeCheck fill="yellow" />
-                    )}
-                    {coin.tickers[3] === "red" && <X fill="red" />}
-                  </p>
-                  {typeof coin.tickers[5] === "string" && coin.tickers[5] && (
-                    <p>timestamp : {coin.tickers[5]}</p>
-                  )}
                 </>
               )}
             </div>
